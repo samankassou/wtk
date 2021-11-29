@@ -7,16 +7,15 @@
     </div>
     <ul class="sidebar-menu">
         <li class="menu-header">Dashboard</li>
-        <li class="{{ request()->is('/admin/dashboard') ? 'active' : '' }}"><a class="nav-link"
-                href="{{ url('/admin/dashboard') }}"><i class="fas fa-columns"></i> <span>Dashboard</span></a></li>
-        <li class="{{ request()->is('table') ? 'active' : '' }}"><a href="{{ url('table') }}"><i
-                    class="fas fa-table"></i> <span>Tables</span></a></li>
-        <li class="menu-header">Users</li>
-        <li><a class="nav-link" href=""><i class="fas fa-users"></i> <span>Users</span></a></li>
+        <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><a class="nav-link"
+                href="{{ route('admin.dashboard') }}"><i class="fas fa-columns"></i> <span>Dashboard</span></a></li>
         <li class="menu-header">Cities</li>
-        <li class="{{ request()->is('/admin/dashboard') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.cities') }}"><i class="fas fa-users"></i> <span>Cities</span>
-            </a>
+        <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.cities') }}"><i class="fas fa-city"></i> <span>Cities</span></a>
+        </li>
+        <li class="menu-header">Users</li>
+        <li class="{{ request()->routeIs('admin.users') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.users') }}"><i class="fas fa-users"></i> <span>Users</span></a>
         </li>
     </ul>
 </aside>
