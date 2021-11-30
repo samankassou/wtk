@@ -21,6 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'username',
+        'company_name',
+        'phone',
+        'biography',
+        'birthday',
+        'gender',
+        'social_links',
+        'role',
     ];
 
     /**
@@ -40,5 +48,12 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birthday'          => 'datetime',
+        'social_links'      => 'array',
     ];
+
+    public function adverts()
+    {
+        return $this->hasMany(Advert::class);
+    }
 }

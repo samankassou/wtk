@@ -15,7 +15,7 @@ class AdminController extends Controller
 
     public function cities()
     {
-        $cities = City::withCount('neighborhoods')->get();
+        $cities = City::all();
         return view('backend.admin.cities.index', compact('cities'));
     }
 

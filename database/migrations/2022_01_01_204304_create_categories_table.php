@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNeighborhoodsTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateNeighborhoodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('neighborhoods', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('city_id')->nullOnDelete();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateNeighborhoodsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('neighborhoods');
+        Schema::dropIfExists('categories');
     }
 }
