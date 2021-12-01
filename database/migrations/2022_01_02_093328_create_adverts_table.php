@@ -33,9 +33,12 @@ class CreateAdvertsTable extends Migration
             $table->string('status')->default('renting'); // Not available, preparing selling, selling, sold, renting, rented, building
             $table->integer('visit_fees')->nullable(); // visit fees
             $table->integer('commission')->nullable(); // comission fees
-            $table->foreignId('category_id')->constrained()->nullOnDelete();
-            $table->foreignId('city_id')->constrained()->nullOnDelete();
-            $table->foreignId('user_id')->constrained()->nullOnDelete(); // owner
+            $table->integer('category_id')->unsigned()->references('id')->on('categories')->index();
+            $table->integer('city_id')->unsigned()->references('id')->on('cities')->index();
+            $table->integer('user_id')->unsigned()->references('id')->on('users')->index();
+            $table->integer('created_by')->unsigned()->references('id')->on('users')->index();
+            $table->integer('updated_by')->unsigned()->references('id')->on('users')->index();
+            $table->integer('deleted_by')->unsigned()->references('id')->on('users')->index();
             $table->softDeletes();
             $table->timestamps();
         });

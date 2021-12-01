@@ -37,6 +37,9 @@ class Advert extends Model
         'category_id',
         'city_id',
         'user_id',
+        'created_by',
+        'updated_by',
+        'deleted_by',
     ];
 
     /**
