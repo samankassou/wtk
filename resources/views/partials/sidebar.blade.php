@@ -10,7 +10,7 @@
         <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}"><a class="nav-link"
                 href="{{ route('admin.dashboard') }}"><i class="fas fa-columns"></i> <span>Dashboard</span></a></li>
         <li class="menu-header">Cities</li>
-        <li class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+        <li class="{{ request()->routeIs('admin.cities') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.cities') }}"><i class="fas fa-city"></i> <span>Cities</span></a>
         </li>
         <li class="menu-header">Users</li>

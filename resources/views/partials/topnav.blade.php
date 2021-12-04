@@ -12,8 +12,8 @@
         <i class="far fa-user"></i> Profile Settings
       </a>
       <div class="dropdown-divider"></div>
-      <a href="#" onclick="e.preventDefault(); document.getElementById('logout-form').submit()" class="dropdown-item has-icon text-danger">
-        <i class="fas fa-sign-out-alt"></i> Logout
+      <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="dropdown-item has-icon text-danger">
+        <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
       </a>
       <form action="{{ route('logout') }}" method="POST" id="logout-form" style="display: none">
         @csrf
