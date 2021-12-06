@@ -26,6 +26,7 @@ class Advert extends Model
         'number_of_bedrooms',
         'number_of_bathrooms',
         'number_of_floors',
+        'is_featured',
         'square',
         'price',
         'features',
@@ -48,7 +49,8 @@ class Advert extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'features'      => 'array',
+        'features'    => 'array',
+        'is_featured' => 'boolean',
     ];
 
     public function user()

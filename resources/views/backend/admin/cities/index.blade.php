@@ -18,17 +18,19 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Cover</th>
                                 <th>Name</th>
-                                <th>Number of neighborhoods</th>
+                                <th>Adverts</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($cities as $city)
                             <tr>
-                                <td>1</td>
-                                <td>Lorem</td>
+                                <td>{{ $loop->index + 1 }}</td>
                                 <td></td>
+                                <td>{{ $city->name }}</td>
+                                <td>{{ $city->adverts_count }}</td>
                                 <td></td>
                             </tr>
                             @empty

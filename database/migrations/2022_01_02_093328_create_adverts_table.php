@@ -28,6 +28,7 @@ class CreateAdvertsTable extends Migration
             $table->tinyInteger('square')->default(1); // m2
             $table->integer('price');
             $table->json('features'); // Wifi, Parking, Security, balcon ...
+            $table->boolean('is_featured')->default(0);
             $table->string('youtube_video_thumbnail')->nullable();
             $table->string('youtube_video_url')->nullable();
             $table->string('status')->default('renting'); // Not available, preparing selling, selling, sold, renting, rented, building

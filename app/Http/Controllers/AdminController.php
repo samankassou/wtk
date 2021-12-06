@@ -17,7 +17,7 @@ class AdminController extends Controller
 
     public function cities()
     {
-        $cities = City::all();
+        $cities = City::withCount('adverts')->paginate(10);
         return view('backend.admin.cities.index', compact('cities'));
     }
 

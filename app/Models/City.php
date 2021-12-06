@@ -16,6 +16,16 @@ class City extends Model
      */
     protected $fillable = [
         'name',
+        'is_featured'
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'is_featured' => 'boolean',
     ];
 
     public function adverts()
