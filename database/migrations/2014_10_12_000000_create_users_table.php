@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('gender')->nullable(); // male or female
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->integer('credits')->default(5);
             $table->json('social_links');
             $table->string('role')->default('user'); // user, moderator, admin
             $table->rememberToken();

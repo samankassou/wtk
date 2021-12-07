@@ -20,6 +20,7 @@ class CreateAdvertsTable extends Migration
             $table->string('description')->nullable(); // short description
             $table->text('content'); // full description
             $table->string('location'); // neighborhood
+            $table->string('admin_status')->default('pending'); // pending, approved, rejected
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->tinyInteger('number_of_bedrooms')->default(0);

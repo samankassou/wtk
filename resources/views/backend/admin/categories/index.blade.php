@@ -25,8 +25,8 @@
                         <tbody>
                             @forelse ($categories as $category)
                             <tr>
-                                <td>1</td>
-                                <td>Lorem</td>
+                                <td>{{ $loop->index + 1 }}</td>
+                                <td>{{ $category->name }}</td>
                                 <td></td>
                             </tr>
                             @empty
