@@ -21,13 +21,16 @@ class CreateUsersTable extends Migration
             $table->string('company_name')->nullable();
             $table->string('phone')->nullable();
             $table->string('biography')->nullable();
-            $table->date('birthday')->nullable();
+            $table->date('dob')->nullable();
+            $table->boolean('is_featured')->default(0);
             $table->string('gender')->nullable(); // male or female
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('credits')->default(5);
             $table->json('social_links');
             $table->string('role')->default('user'); // user, moderator, admin
+            $table->string('status')->default('active'); // active, suspended
+            $table->boolean('is_super_user')->default(0); //
             $table->rememberToken();
             $table->timestamps();
         });
