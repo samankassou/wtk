@@ -38,9 +38,9 @@
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <td>Created at</td>
-                                <td>Status</td>
-                                <td>Is Super</td>
+                                <th>Created at</th>
+                                <th>Status</th>
+                                <th>Is Super</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -49,9 +49,20 @@
                             <tr id="row{{ $user->id }}">
                                 <td><input type="checkbox" name="ids[]" value="{{ $user->id }}"></td>
                                 <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $user->username }}</td>
+                                <td>
+                                    <a href="{{ route('admin.users.show', $user) }}">
+                                        {{ $user->username }}
+                                    </a>
+                                </td>
                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                 <td>{{ ucfirst($user->role) }}</td>
+                                <td>{{ optional($user->created_at)->format('d/m/Y') }}</td>
+                                <td>
+                                    @include('backend.admin.users.includes.status', ['status' => $user->status])
+                                </td>
+                                <td>
+                                    @include('backend.admin.users.includes.is_super_user', ['is_super' => $user->is_super_user])
+                                </td>
                                 <td class="d-flex align-items-center">
                                     <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
                                         <i class="far fa-edit"></i>

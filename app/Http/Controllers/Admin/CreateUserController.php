@@ -15,6 +15,7 @@ class CreateUserController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        $roles = ['admin', 'moderator'];
+        return view('backend.admin.users.create', compact('roles'));
     }
 }
