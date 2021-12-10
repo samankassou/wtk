@@ -25,7 +25,7 @@ class ShowUsersController extends Controller
             $q->suspended();
         });
 
-        $users = $query->paginate(10);
+        $users = $query->paginate(10)->withQueryString();
         $all = User::count();
         $actives = User::active()->count();
         $suspended = User::suspended()->count();

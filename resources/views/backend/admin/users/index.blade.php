@@ -15,18 +15,18 @@
             <div class="card-body">
 
                 <div class="row mb-2">
-                <div class="col-sm-8">
-                    <a href="{{ route('admin.users.index', 'type=all') }}" class="mr-2 btn btn-outline-primary @if(request('type') && request('type')==="all") active @endif">{{ __('All') }} ({{ $all }})</a>
+                    <div class="col-sm-8">
+                        <a href="{{ route('admin.users.index', 'type=all') }}" class="mr-2 btn btn-outline-primary @if(request('type') && request('type')==="all") active @endif">{{ __('All') }} ({{ $all }})</a>
 
-                    <a href="{{ route('admin.users.index','type=active') }}" class="mr-2 btn btn-outline-success @if(request('type') && request('type')=="active") active @endif">{{ __('Active') }} ({{ $actives }})</a>
+                        <a href="{{ route('admin.users.index','type=active') }}" class="mr-2 btn btn-outline-success @if(request('type') && request('type')=="active") active @endif">{{ __('Active') }} ({{ $actives }})</a>
 
-                    <a href="{{ route('admin.users.index','type=suspended') }}" class="mr-2 btn btn-outline-warning @if(request('type') && request('type')=="suspended") active @endif">{{ __('Suspened') }} ({{ $suspended }})</a>
+                        <a href="{{ route('admin.users.index','type=suspended') }}" class="mr-2 btn btn-outline-warning @if(request('type') && request('type')=="suspended") active @endif">{{ __('Suspened') }} ({{ $suspended }})</a>
 
-                </div>
+                    </div>
 
-                <div class="col-sm-4 text-right">
-                    <a href="{{ route('admin.users.create') }}" class="btn btn-primary">{{ __('Create a User') }}</a>
-                </div>
+                    <div class="col-sm-4 text-right">
+                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">{{ __('Create a User') }}</a>
+                    </div>
                 </div>
 
                 <div class="table-responsive">
@@ -85,7 +85,21 @@
                     </table>
                 </div>
             </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center">
+                    {{ $users->appends(request()->all())->links() }}
+                </div>
+            </div>
         </div>
     </div>
 </section>
 @endsection
+@push('javascript')
+<script>
+    iziToast.info({
+        title: 'Info',
+        message: {{ session('info') }},
+        position: 'topRight'
+    });
+</script>
+@endpush
