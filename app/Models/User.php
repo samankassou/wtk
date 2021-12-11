@@ -67,4 +67,19 @@ class User extends Authenticatable
     {
         return $query->where('status', 'suspended');
     }
+
+    public function scopeAgent($query)
+    {
+        return $query->where('role', 'agent');
+    }
+
+    public function scopeActiveAgent($query)
+    {
+        return $query->agent()->active();
+    }
+
+    public function scopeSuspendedAgent($query)
+    {
+        return $query->agent()->suspended();
+    }
 }

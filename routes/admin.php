@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DeleteCityController;
 use App\Http\Controllers\Admin\DeleteUserController;
 use App\Http\Controllers\Admin\EditAdvertController;
 use App\Http\Controllers\Admin\ShowAdvertController;
+use App\Http\Controllers\Admin\ShowAgentsController;
 use App\Http\Controllers\Admin\ShowCitiesController;
 use App\Http\Controllers\Admin\UpdateCityController;
 use App\Http\Controllers\Admin\UpdateUserController;
@@ -42,6 +43,8 @@ Route::get('users/{user}/edit', EditUserController::class)->name('users.edit');
 Route::patch('users/{user}', UpdateUserController::class)->name('users.update');
 Route::delete('users/{user}', DeleteUserController::class)->name('users.destroy');
 
+// Agents management routes
+Route::get('agents', ShowAgentsController::class)->name('agents.index');
 
 // Cities management routes
 Route::get('cities', ShowCitiesController::class)->name('cities.index');
