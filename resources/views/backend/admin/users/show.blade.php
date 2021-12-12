@@ -17,19 +17,21 @@
                     <div class="card-body">
                         <div class="profile-widget">
                             <div class="profile-widget-header mb-2 text-center">
-                                <img alt="image" src="{{ asset('assets/img/avatar-1.png') }}"
+                                <img alt="image" src="{{ $user->getFirstMediaUrl('avatar') }}"
                                     class="profile-widget-picture rounded" height="80">
                             </div>
                             <div class="profile-widget-description">
                                 <ul class="list-group">
-                                    <li class="list-group-item">Name : {{ $user->name }}</li>
-                                    <li class="list-group-item">Email : {{ $user->email }}</li>
-                                    <li class="list-group-item">Total Customers : 0</li>
-                                    <li class="list-group-item">Total Orders : 0</li>
-                                    <li class="list-group-item">Total Posts: 0</li>
-                                    <li class="list-group-item">Storage Used: 0MB / 10000 MB</li>
+                                    <li class="list-group-item"><strong>Name</strong> : {{ $user->name }}</li>
+                                    <li class="list-group-item"><strong>Email</strong> : {{ $user->email }}</li>
+                                    <li class="list-group-item"><strong>Username</strong>: {{ $user->username }}</li>
+                                    @if ($user->phone)
+                                        <li class="list-group-item"><strong>Phone</strong> : {{ $user->phone }}</li>
+                                    @endif
+                                    <li class="list-group-item"><strong>Status</strong> : @include('backend.admin.users.includes.status', ['status' => $user->status])</li>
+                                    <li class="list-group-item"><strong>Role</strong> : {{ $user->role }}</li>
 
-                                    <li class="list-group-item">Joining Date: 16-November-2021</li>
+                                    <li class="list-group-item"><strong>Joining Date</strong> : {{ $user->created_at->format('d/m/Y') }}</li>
                                 </ul>
 
                             </div>

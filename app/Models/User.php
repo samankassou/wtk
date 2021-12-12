@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
+use Spatie\Image\Manipulations;
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +35,9 @@ class User extends Authenticatable
         'gender',
         'social_links',
         'role',
+        'credits',
+        'is_super_user',
+        'status'
     ];
 
     /**
@@ -51,7 +59,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday'          => 'datetime',
         'social_links'      => 'array',
+        'is_super_user'     => 'boolean'
     ];
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('avatar')
+            ->singleFile()
+            ->useFallbackUrl('/assets/img/avatar-1.png')
+            ->useFallbackPath(public_path('/assets/img/avatar-1.png'));
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('avatar')
+            ->fit(Manipulations::FIT_CONTAIN, 200, 200)
+            ->performOnCollections('avatar');
+    }
 
     public function adverts()
     {

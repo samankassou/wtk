@@ -35,7 +35,7 @@
                             <tr>
                                 <th><input type="checkbox" class="checkAll"></th>
                                 <th>#</th>
-                                <th>Username</th>
+                                <th>Image</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>Created at</th>
@@ -50,8 +50,8 @@
                                 <td><input type="checkbox" name="ids[]" value="{{ $user->id }}"></td>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.show', $user) }}">
-                                        {{ $user->username }}
+                                    <a href="{{ route('admin.users.show', $user) }}" class="font-weight-600">
+                                        <img src="{{ $user->getFirstMediaUrl('avatar') }}" alt="avatar" width="30" class="rounded-circle mr-1"> {{ $user->name }}
                                     </a>
                                 </td>
                                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>

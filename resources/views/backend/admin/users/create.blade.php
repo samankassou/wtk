@@ -17,10 +17,12 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-
+                            <div class="col-12">
+                                <p class="text-danger text-sm font-italic">(*) Required fields</p>
+                            </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
+                                    <label for="name">Name<sup class="text-danger text-bold">*</sup></label>
                                     <input type="text" id="name" name="name" value="{{ old('name') }}"
                                         class="form-control @error('name') is-invalid @enderror">
                                     @error('name')
@@ -33,7 +35,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="username">Username</label>
+                                    <label for="username">Username<sup class="text-danger text-bold">*</sup></label>
                                     <input type="text" id="username" name="username" value="{{ old('username') }}"
                                         class="form-control @error('username') is-invalid @enderror">
                                     @error('username')
@@ -50,7 +52,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
+                                    <label for="email">Email<sup class="text-danger text-bold">*</sup></label>
                                     <input type="email" id="email" name="email" value="{{ old('email') }}"
                                         class="form-control @error('email') is-invalid @enderror">
                                     @error('email')
@@ -63,7 +65,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="phone">Phone</label>
+                                    <label for="phone">Phone<sup class="text-danger text-bold">*</sup></label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">
@@ -83,7 +85,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="form-label">Role</label>
+                            <label class="form-label">Role<sup class="text-danger text-bold">*</sup></label>
                             <div class="selectgroup w-100">
                                 @foreach ($roles as $role)
                                 <label class="selectgroup-item">
@@ -104,7 +106,7 @@
 
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
-                                    <label for="password">Password</label>
+                                    <label for="password">Password<sup class="text-danger text-bold">*</sup></label>
                                     <input type="password" id="password" name="password"
                                         class="form-control @error('password') is-invalid @enderror">
                                     @error('password')
