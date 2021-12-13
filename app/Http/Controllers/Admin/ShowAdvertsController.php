@@ -16,7 +16,24 @@ class ShowAdvertsController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $adverts = Advert::all();
-        return view('backend.admin.adverts.index', compact('adverts'));
+        $query = Advert::query();
+
+        $query->when(request('type') == 'pending', function($q){
+            $q->pending();
+        });
+        $query->when(request('type') == 'approved', function($q){
+            $q->approved();
+        });
+        $query->when(request('type') == 'rejected', function($q){
+            $q->rejected();
+        });
+
+        $adverts = $query->paginate(10)->withQueryString();
+
+        $all = Advert::count();
+        $pending = Advert::pending()->count();
+        $approved = Advert::approved()->count();
+        $rejected = Advert::rejected()->count();
+        return view('backend.admin.adverts.index', compact('adverts', 'all', 'pending', 'approved', 'rejected'));
     }
 }

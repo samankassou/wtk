@@ -20,7 +20,7 @@ class CreateAdvertsTable extends Migration
             $table->string('description')->nullable(); // short description
             $table->text('content'); // full description
             $table->string('location'); // neighborhood
-            $table->string('admin_status')->default('pending'); // pending, approved, rejected
+            $table->string('moderation_status')->default('pending'); // pending, approved, rejected
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->tinyInteger('number_of_bedrooms')->default(0);
@@ -35,12 +35,12 @@ class CreateAdvertsTable extends Migration
             $table->string('status')->default('renting'); // Not available, preparing selling, selling, sold, renting, rented, building
             $table->integer('visit_fees')->nullable(); // visit fees
             $table->integer('commission')->nullable(); // comission fees
-            $table->integer('category_id')->unsigned()->references('id')->on('categories')->index();
-            $table->integer('city_id')->unsigned()->references('id')->on('cities')->index();
-            $table->integer('user_id')->unsigned()->references('id')->on('users')->index();
-            $table->integer('created_by')->unsigned()->references('id')->on('users')->index();
-            $table->integer('updated_by')->unsigned()->references('id')->on('users')->index();
-            $table->integer('deleted_by')->unsigned()->references('id')->on('users')->index();
+            $table->foreignId('category_id')->nullable()->constrained();
+            $table->foreignId('city_id')->nullable()->constrained();
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->softDeletes();
             $table->timestamps();
         });

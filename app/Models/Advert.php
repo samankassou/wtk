@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Advert extends Model
+class Advert extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +29,7 @@ class Advert extends Model
         'number_of_bathrooms',
         'number_of_floors',
         'is_featured',
+        'moderation_status',
         'square',
         'price',
         'features',
@@ -53,6 +56,14 @@ class Advert extends Model
         'is_featured' => 'boolean',
     ];
 
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('images')
+            ->useFallbackUrl('/assets/img/example-image.jpg')
+            ->useFallbackPath(public_path('/assets/img/example-image.jpg'));
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -61,5 +72,20 @@ class Advert extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('moderation_status', 'approved');
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('moderation_status', 'pending');
+    }
+
+    public function scopeRejected($query)
+    {
+        return $query->where('moderation_status', 'rejected');
     }
 }
