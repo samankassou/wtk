@@ -26,4 +26,9 @@ class HomeController extends Controller
             return redirect()->route('home');
         }
     }
+
+    public function storeImages(Request $request)
+    {
+        return "ok";
+    }
 }

@@ -32,11 +32,12 @@ class AdvertSeeder extends Seeder
             'is_featured'         => 1,
             'status'              => 'renting',
             'visit_fees'          => 5000,
-            'category_id'         => 1,
             'city_id'             => 3,
             'user_id'             => 1,
             'created_by'          => 1
         ]);
+
+        $advert->categories()->attach([1]);
 
         $advert->addMediaFromUrl(url('/assets/img/example-image.jpg'))
         ->toMediaCollection('images');

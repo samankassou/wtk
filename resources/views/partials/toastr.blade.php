@@ -2,7 +2,7 @@
 <script>
     iziToast.success({
         title: 'Success',
-        message: {{ session('success') }},
+        message: "{{ session('success') }}",
         position: 'topRight'
     });
 </script>
@@ -11,7 +11,7 @@
 <script>
     iziToast.error({
         title: 'Error',
-        message: {{ session('error') }},
+        message: "{{ session('error') }}",
         position: 'topRight'
     });
 </script>
@@ -20,7 +20,7 @@
 <script>
     iziToast.info({
         title: 'Info',
-        message: {{ session('info') }},
+        message: "{{ session('info') }}",
         position: 'topRight'
     });
 </script>

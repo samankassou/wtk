@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\UploadedFile;
+use Symfony\Component\HttpFoundation\File\File;
 
 class StoreAdvertController extends Controller
 {
@@ -15,6 +18,6 @@ class StoreAdvertController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        dd($request->all());
     }
 }

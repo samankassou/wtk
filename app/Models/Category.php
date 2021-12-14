@@ -20,6 +20,6 @@ class Category extends Model
 
     public function adverts()
     {
-        return $this->hasMany(Advert::class);
+        return $this->belongsToMany(Advert::class);
     }
 }
