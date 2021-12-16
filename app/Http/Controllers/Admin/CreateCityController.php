@@ -15,6 +15,6 @@ class CreateCityController extends Controller
      */
     public function __invoke(Request $request)
     {
-        //
+        return view('backend.admin.cities.create');
     }
 }

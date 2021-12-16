@@ -17,6 +17,7 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('is_featured')->default(0);
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
