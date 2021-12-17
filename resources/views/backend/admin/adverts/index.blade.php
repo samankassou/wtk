@@ -55,9 +55,11 @@
                                 </td>
                                 <td>{{ $advert->title }}</td>
                                 <td>{{ $advert->created_at->format('d/m/Y') }}</td>
-                                <td>{{ $advert->status }}</td>
                                 <td>
-                                   {{ $advert->moderation_status }}
+                                    {{ $advert->status }}
+                                </td>
+                                <td>
+                                    @include('backend.admin.adverts.includes.moderation_status', ['status' => $advert->moderation_status])
                                 </td>
                                 <td class="d-flex align-items-center">
                                     <a href="{{ route('admin.adverts.edit', $advert) }}" class="btn btn-icon btn-primary mr-2" title="Edit">

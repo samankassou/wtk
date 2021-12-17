@@ -15,7 +15,11 @@ class CategorySeeder extends Seeder
     public function run()
     {
         Category::insert([
-            ['name' => 'Apartment']
+            ['name' => 'Apartment'],
+            ['name' => 'Villa'],
+            ['name' => 'House'],
+            ['name' => 'Land'],
+            ['name' => 'Commercial property'],
         ]);
     }
 }

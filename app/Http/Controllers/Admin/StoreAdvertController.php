@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\UploadedFile;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\StoreAdvertRequest;
 use Symfony\Component\HttpFoundation\File\File;
 
 class StoreAdvertController extends Controller
@@ -16,7 +17,7 @@ class StoreAdvertController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(StoreAdvertRequest $request)
     {
         dd($request->all());
     }

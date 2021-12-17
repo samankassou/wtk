@@ -48,13 +48,14 @@
                                 <div class="form-group">
                                     <label for="type" class="form-label">Type<sup
                                             class="text-danger text-bold">*</sup></label>
-                                    <select name="type" id="type" class="form-control">
+                                    <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
+                                        <option value="">Choose a type</option>
                                         @foreach ($types as $type)
                                         <option value="{{ $type }}" @if(old('type')==$type) selected @endif>
                                             {{ ucfirst($type) }}</option>
                                         @endforeach
                                     </select>
-                                    @error('categories')
+                                    @error('type')
                                     <span class="invalid-feedback text-small">
                                         {{ $message }}
                                     </span>
@@ -80,7 +81,7 @@
                                 <div class="form-group">
                                     <label for="description" class="form-label">Description<sup
                                             class="text-danger text-bold">*</sup></label>
-                                    <textarea style="min-height: 100px" name="description" id="description" class="form-control" rows="8"
+                                    <textarea style="min-height: 100px" name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="8"
                                         cols="50" placeholder="Short description">{{ old('description') }}</textarea>
                                     @error('description')
                                     <span class="invalid-feedback text-small">
@@ -137,7 +138,8 @@
                                 <div class="form-group">
                                     <label for="city" class="form-label">City<sup
                                             class="text-danger text-bold">*</sup></label>
-                                    <select name="city" id="city" class="form-control">
+                                    <select name="city" id="city" class="form-control @error('city') is-invalid @enderror">
+                                        <option value="">{{ __('Choose a city') }}</option>
                                         @foreach ($cities as $city)
                                         <option value="{{ $city->id }}" @if(old('city')==$city->id) selected
                                             @endif>{{ ucfirst($city->name) }}</option>
@@ -214,7 +216,9 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 col-md-4">
+
+                            {{-- Bedrooms --}}
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="number_of_bedrooms" class="form-label">Number of bedrooms</label>
                                     <input type="number" id="number_of_bedrooms" name="number_of_bedrooms"
@@ -227,7 +231,10 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            {{-- End bedrooms --}}
+
+                            {{-- Bathrooms --}}
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="number_of_bathrooms" class="form-label">Number of bathrooms</label>
                                     <input type="number" id="number_of_bathrooms" name="number_of_bathrooms"
@@ -240,7 +247,13 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="col-12 col-md-4">
+                            {{-- End bathrooms --}}
+
+                        </div>
+
+                        <div class="row">
+                            {{-- Square --}}
+                            <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="square" class="form-label">Square (m<sup>2</sup>)</label>
                                     <input type="number" id="square" name="square" value="{{ old('square') }}"
@@ -252,12 +265,34 @@
                                     @enderror
                                 </div>
                             </div>
+                            {{-- End square --}}
+
+                            {{-- Period --}}
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="period" class="form-label">Period (day/month/year)<sup class="text-danger text-bold">*</sup></label>
+                                    <select name="period" id="period" class="form-control @error('period') is-invalid @enderror">
+                                        <option value="">{{ __('Choose a period') }}</option>
+                                        @foreach ($periods as $period)
+                                        <option value="{{ $period }}" @if(old('status')==$period)
+                                            selected @endif>{{ $period }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('period')
+                                    <span class="invalid-feedback text-small">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- End period --}}
                         </div>
 
                         <div class="row">
+                            {{-- Price --}}
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="price" class="form-label">Price (FCFA)</label>
+                                    <label for="price" class="form-label">Price (FCFA)<sup class="text-danger text-bold">*</sup></label>
                                     <input type="text" id="price" name="price" value="{{ old('price') }}"
                                         placeholder="Price"
                                         class="form-control input-mask-number @error('price') is-invalid @enderror">
@@ -268,14 +303,17 @@
                                     @enderror
                                 </div>
                             </div>
+                            {{-- End price --}}
                         </div>
 
+                        {{-- Categories --}}
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="categories" class="form-label">Categories<sup
                                             class="text-danger text-bold">*</sup></label>
-                                    <select name="categories" id="categories" class="form-control select2" multiple>
+                                    <select name="categories" id="categories" class="form-control select2 @error('categories') is-invalid @enderror" multiple>
+                                        <option value="">{{ __('Choose categories') }}</option>
                                         @foreach ($categories as $category)
                                         <option value="{{ $category->id }}" @if(collect(old('categories'))->
                                             contains($category->id)) selected @endif>{{ $category->name }}</option>
@@ -289,6 +327,7 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- End categories --}}
 
                     </div>
                 </div>
@@ -325,7 +364,8 @@
                                         <div class="form-group">
                                             <label for="status" class="form-label">Status<sup
                                                     class="text-danger text-bold">*</sup></label>
-                                            <select name="status" id="status" class="form-control">
+                                            <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
+                                                <option value="">{{ __('Choose a status') }}</option>
                                                 @foreach ($status as $singleStatus)
                                                 <option value="{{ $singleStatus }}" @if(old('status')==$singleStatus)
                                                     selected @endif>{{ $singleStatus }}</option>
@@ -343,7 +383,8 @@
                                             <label for="moderation_status" class="form-label">Moderation status<sup
                                                     class="text-danger text-bold">*</sup></label>
                                             <select name="moderation_status" id="moderation_status"
-                                                class="form-control">
+                                                class="form-control @error('moderation_status') is-invalid @enderror">
+                                                <option value="">{{ __('Choose a moderation status') }}</option>
                                                 @foreach ($moderationStatus as $status)
                                                 <option value="{{ $status }}" @if(old('moderation_status')==$status)
                                                     selected @endif>{{ $status }}</option>
@@ -363,7 +404,8 @@
                                         <div class="form-group">
                                             <label for="account" class="form-label">Account<sup
                                                     class="text-danger text-bold">*</sup></label>
-                                            <select name="account" id="account" class="form-control">
+                                            <select name="account" id="account" class="form-control @error('account') is-invalid @enderror">
+                                                <option value="">{{ __('Choose a user account') }}</option>
                                                 @foreach ($accounts as $account)
                                                 <option value="{{ $account->id }}" @if(old('account')==$account->id)
                                                     selected @endif>{{ $account->name }}</option>
@@ -392,10 +434,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3 mb-md-0">
-                                <button type="submit" class="btn btn-block btn-primary">Save</button>
+                                <button type="submit" class="btn btn-block btn-primary">{{ __('Save') }}</button>
                             </div>
                             <div class="col-12 col-md-6">
-                                <a class="btn btn-block btn-danger" href="{{ route('admin.adverts.index') }}">Cancel</a>
+                                <a class="btn btn-block btn-danger" href="{{ route('admin.adverts.index') }}">{{ __('Cancel') }}</a>
                             </div>
                         </div>
                     </div>

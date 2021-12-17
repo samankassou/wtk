@@ -26,6 +26,8 @@ class CreateAdvertController extends Controller
         $moderationStatus = ['pending', 'approved', 'rejected'];
         $accounts = User::agent(['id', 'name']);
         $status = ['Not available', 'Preparing selling', 'Selling', 'Sold', 'Renting', 'Rented'];
-        return view('backend.admin.adverts.create', compact('categories', 'types', 'cities', 'features', 'moderationStatus', 'accounts', 'status'));
+        $periods = ['day', 'month', 'year'];
+        return view('backend.admin.adverts.create',
+        compact('categories', 'types', 'cities', 'features', 'moderationStatus', 'accounts', 'status', 'periods'));
     }
 }
