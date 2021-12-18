@@ -21,8 +21,8 @@ class CreateAdvertsTable extends Migration
             $table->text('content'); // full description
             $table->string('location'); // neighborhood
             $table->string('moderation_status')->default('pending'); // pending, approved, rejected
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->double('latitude')->nullable();
+            $table->double('longitude')->nullable();
             $table->tinyInteger('number_of_bedrooms')->default(0);
             $table->tinyInteger('number_of_bathrooms')->default(0);
             $table->tinyInteger('number_of_floors')->default(0);
@@ -35,7 +35,7 @@ class CreateAdvertsTable extends Migration
             $table->string('youtube_video_url')->nullable();
             $table->string('status')->default('renting'); // Not available, preparing selling, selling, sold, renting, rented, building
             $table->integer('visit_fees')->nullable(); // visit fees
-            $table->integer('commission')->nullable(); // comission fees
+            $table->integer('commission')->nullable(); // commission fees
             $table->foreignId('city_id')->nullable()->constrained();
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

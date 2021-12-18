@@ -24,8 +24,8 @@ class CreateAdvertController extends Controller
         $types = ['rent', 'sale'];
         $features = Feature::all(['id', 'name']);
         $moderationStatus = ['pending', 'approved', 'rejected'];
-        $accounts = User::agent(['id', 'name']);
-        $status = ['Not available', 'Preparing selling', 'Selling', 'Sold', 'Renting', 'Rented'];
+        $accounts = User::agent()->get(['id', 'name']);
+        $status = ['not available', 'preparing selling', 'selling', 'sold', 'renting', 'rented'];
         $periods = ['day', 'month', 'year'];
         return view('backend.admin.adverts.create',
         compact('categories', 'types', 'cities', 'features', 'moderationStatus', 'accounts', 'status', 'periods'));

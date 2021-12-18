@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAdvertRequest;
+use App\Models\Advert;
+use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\File\File;
 
 class StoreAdvertController extends Controller
@@ -19,6 +21,27 @@ class StoreAdvertController extends Controller
      */
     public function __invoke(StoreAdvertRequest $request)
     {
-        dd($request->all());
+        $data = Arr::except($request->validated(), 'categories');
+
+
+        $data['is_featured']         = $request->is_featured ?? 0;
+        $data['content']             = $request->content ?? "";
+        $data['latitude']            = $request->latitude ?? 0;
+        $data['longitude']           = $request->longitude ?? 0;
+        $data['square']              = $request->square ?? 0;
+        $data['user_id']             = $request->account;
+        $data['features']            = $request->features ?? [];
+        $data['visit_fees']          = $request->visit_fees ?? 0;
+        $data['commission']          = $request->commission ?? 0;
+        $data['number_of_bedrooms']  = $request->number_of_bedrooms ?? 0;
+        $data['number_of_bathrooms'] = $request->number_of_bathrooms ?? 0;
+
+        $advert = Advert::create($data);
+
+        $advert->categories()->attach($request->categories);
+
+        return redirect()
+        ->route('admin.adverts.index')
+        ->with('success', __('Advert created successfully'));
     }
 }

@@ -29,5 +29,21 @@ class UserSeeder extends Seeder
             ],
 
         ]);
+
+        User::create([
+            'name'           => 'Agent 1',
+            'email'          => 'agent1@agent.com',
+            'username'       => 'agent1',
+            'password'       => bcrypt('password'),
+            'role'           => 'agent',
+            'phone'          => '237691565877',
+            'remember_token' => Str::random(10),
+            'social_links'   => [
+                'facebook' => "",
+                'twitter'  => "",
+                'linkedin' => ""
+            ],
+
+        ]);
     }
 }

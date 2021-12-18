@@ -179,7 +179,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="latitude" class="form-label">Latitude</label>
-                                    <input type="text" id="latitude" name="latitude" value="{{ old('latitude') }}"
+                                    <input type="number" id="latitude" name="latitude" value="{{ old('latitude') }}"
                                         placeholder="Ex: 1.432270"
                                         class="form-control @error('latitude') is-invalid @enderror">
                                     <a class="form-text text-muted"
@@ -198,7 +198,7 @@
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="longitude" class="form-label">Longitude</label>
-                                    <input type="text" id="longitude" name="longitude" value="{{ old('longitude') }}"
+                                    <input type="number" id="longitude" name="longitude" value="{{ old('longitude') }}"
                                         placeholder="Ex: 104.812530"
                                         class="form-control @error('longitude') is-invalid @enderror">
                                     <a class="form-text text-muted"
@@ -218,7 +218,7 @@
                         <div class="row">
 
                             {{-- Bedrooms --}}
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="number_of_bedrooms" class="form-label">Number of bedrooms</label>
                                     <input type="number" id="number_of_bedrooms" name="number_of_bedrooms"
@@ -234,7 +234,7 @@
                             {{-- End bedrooms --}}
 
                             {{-- Bathrooms --}}
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="number_of_bathrooms" class="form-label">Number of bathrooms</label>
                                     <input type="number" id="number_of_bathrooms" name="number_of_bathrooms"
@@ -249,11 +249,8 @@
                             </div>
                             {{-- End bathrooms --}}
 
-                        </div>
-
-                        <div class="row">
                             {{-- Square --}}
-                            <div class="col-12 col-md-6">
+                            <div class="col-12 col-md-4">
                                 <div class="form-group">
                                     <label for="square" class="form-label">Square (m<sup>2</sup>)</label>
                                     <input type="number" id="square" name="square" value="{{ old('square') }}"
@@ -267,6 +264,26 @@
                             </div>
                             {{-- End square --}}
 
+                        </div>
+
+                        <div class="row">
+
+                            {{-- Price --}}
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label for="price" class="form-label">Price (FCFA)<sup class="text-danger text-bold">*</sup></label>
+                                    <input type="text" id="price" name="price" value="{{ old('price') }}"
+                                        placeholder="Price"
+                                        class="form-control @error('price') is-invalid @enderror">
+                                    @error('price')
+                                    <span class="invalid-feedback text-small">
+                                        {{ $message }}
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            {{-- End Price --}}
+
                             {{-- Period --}}
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
@@ -274,7 +291,7 @@
                                     <select name="period" id="period" class="form-control @error('period') is-invalid @enderror">
                                         <option value="">{{ __('Choose a period') }}</option>
                                         @foreach ($periods as $period)
-                                        <option value="{{ $period }}" @if(old('status')==$period)
+                                        <option value="{{ $period }}" @if(old('period')==$period)
                                             selected @endif>{{ $period }}</option>
                                         @endforeach
                                     </select>
@@ -288,35 +305,15 @@
                             {{-- End period --}}
                         </div>
 
-                        <div class="row">
-                            {{-- Price --}}
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <label for="price" class="form-label">Price (FCFA)<sup class="text-danger text-bold">*</sup></label>
-                                    <input type="text" id="price" name="price" value="{{ old('price') }}"
-                                        placeholder="Price"
-                                        class="form-control input-mask-number @error('price') is-invalid @enderror">
-                                    @error('price')
-                                    <span class="invalid-feedback text-small">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            {{-- End price --}}
-                        </div>
-
                         {{-- Categories --}}
                         <div class="row">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label for="categories" class="form-label">Categories<sup
                                             class="text-danger text-bold">*</sup></label>
-                                    <select name="categories" id="categories" class="form-control select2 @error('categories') is-invalid @enderror" multiple>
-                                        <option value="">{{ __('Choose categories') }}</option>
+                                    <select name="categories[]" id="categories" style="width: 100%" data-allow-clear="true" class="form-control select2 @error('categories') is-invalid @enderror" multiple="multiple">
                                         @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}" @if(collect(old('categories'))->
-                                            contains($category->id)) selected @endif>{{ $category->name }}</option>
+                                        <option value="{{ $category->id }}" @if(collect(old('categories'))->contains($category->id)) selected @endif>{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     @error('categories')
@@ -353,6 +350,50 @@
                     </div>
                 </div>
                 {{-- End features --}}
+
+                {{-- Extra info --}}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    {{-- Visit fees --}}
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="visit_fees" class="form-label">Visit fees (FCFA)</label>
+                                            <input type="text" id="visit_fees" name="visit_fees" value="{{ old('visit_fees') }}"
+                                                placeholder="Visit fees"
+                                                class="form-control @error('visit_fees') is-invalid @enderror">
+                                            @error('visit_fees')
+                                            <span class="invalid-feedback text-small">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- End visit fees --}}
+
+                                    {{-- Commission --}}
+                                    <div class="col-12 col-md-6">
+                                        <div class="form-group">
+                                            <label for="commission" class="form-label">Commission fees (FCFA)</label>
+                                            <input type="text" id="commission" name="commission" value="{{ old('commission') }}"
+                                                placeholder="Commission fees"
+                                                class="form-control @error('commission') is-invalid @enderror">
+                                            @error('commission')
+                                            <span class="invalid-feedback text-small">
+                                                {{ $message }}
+                                            </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    {{-- End commission --}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {{-- Additional info --}}
                 <div class="row">
@@ -405,7 +446,7 @@
                                             <label for="account" class="form-label">Account<sup
                                                     class="text-danger text-bold">*</sup></label>
                                             <select name="account" id="account" class="form-control @error('account') is-invalid @enderror">
-                                                <option value="">{{ __('Choose a user account') }}</option>
+                                                <option value="">{{ __('Choose an agent') }}</option>
                                                 @foreach ($accounts as $account)
                                                 <option value="{{ $account->id }}" @if(old('account')==$account->id)
                                                     selected @endif>{{ $account->name }}</option>
@@ -423,14 +464,14 @@
                         </div>
                     </div>
                 </div>
-                {{-- End info --}}
+                {{-- End additional info --}}
 
             </div>
 
 
 
             <div class="col-12 col-md-4">
-                <div class="card position-sticky">
+                <div class="card position-sticky fixed-top">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 col-md-6 mb-3 mb-md-0">

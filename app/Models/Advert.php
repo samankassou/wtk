@@ -54,6 +54,7 @@ class Advert extends Model implements HasMedia
     protected $casts = [
         'features'    => 'array',
         'is_featured' => 'boolean',
+        'square'      => 'integer'
     ];
 
     public function registerMediaCollections(): void

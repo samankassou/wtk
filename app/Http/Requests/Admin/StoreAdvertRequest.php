@@ -32,9 +32,14 @@ class StoreAdvertRequest extends FormRequest
             'period'            => ['required'],
             'price'             => ['required', 'integer'],
             'categories'        => ['required', 'array'],
+            'features'          => ['nullable', 'array'],
             'status'            => ['required'],
             'moderation_status' => ['required'],
-            'account'           => ['required', 'exists:users,id']
+            'visit_fees'        => ['nullable', 'integer'],
+            'commission'        => ['nullable', 'integer'],
+            'account'           => ['required', 'exists:users,id'],
+            'latitude'          => ['nullable', 'regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude'         => ['nullable', 'regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
 
         ];
     }
