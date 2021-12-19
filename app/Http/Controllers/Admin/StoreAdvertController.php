@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Advert;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreAdvertRequest;
-use App\Models\Advert;
-use Illuminate\Support\Arr;
 use Symfony\Component\HttpFoundation\File\File;
 
 class StoreAdvertController extends Controller
@@ -36,9 +37,12 @@ class StoreAdvertController extends Controller
         $data['number_of_bedrooms']  = $request->number_of_bedrooms ?? 0;
         $data['number_of_bathrooms'] = $request->number_of_bathrooms ?? 0;
 
-        $advert = Advert::create($data);
+        DB::transaction(function () use($data, $request) {
 
-        $advert->categories()->attach($request->categories);
+            $advert = Advert::create($data);
+
+            $advert->categories()->attach($request->categories);
+        });
 
         return redirect()
         ->route('admin.adverts.index')

@@ -11,11 +11,11 @@
                 href="{{ route('admin.dashboard') }}"><i class="fas fa-columns"></i> <span>Dashboard</span></a></li>
         <li class="menu-header">Adverts</li>
         <li class="{{ request()->routeIs('admin.adverts.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.adverts.index') }}"><i class="fas fa-city"></i> <span>Adverts</span></a>
+            <a class="nav-link" href="{{ route('admin.adverts.index') }}"><i class="fas fa-ad"></i> <span>Adverts</span></a>
         </li>
         <li class="menu-header">Categories</li>
         <li class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-city"></i> <span>Categories</span></a>
+            <a class="nav-link" href="{{ route('admin.categories.index') }}"><i class="fas fa-list-alt"></i> <span>Categories</span></a>
         </li>
         <li class="menu-header">Cities</li>
         <li class="{{ request()->routeIs('admin.cities.*') ? 'active' : '' }}">
