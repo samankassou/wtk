@@ -18,6 +18,8 @@ class ShowUsersController extends Controller
     {
 
         $query = User::query();
+        $query->NotAgent();
+
         $query->when(request('type') == 'active', function($q){
             $q->active();
         });

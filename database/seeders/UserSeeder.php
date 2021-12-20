@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
             'username'       => 'admin',
             'password'       => bcrypt('admin'),
             'role'           => 'admin',
+            'is_super_user'  => 1,
             'remember_token' => Str::random(10),
             'social_links'   => [
                 'facebook' => "",

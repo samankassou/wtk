@@ -339,7 +339,7 @@
                                     @foreach ($features as $feature)
                                         <div class="form-check mb-2">
                                             <input class="form-check-input" name="features[]" type="checkbox"
-                                                id="feature{{ $feature->id }}" value="{{ $feature->id }}">
+                                                id="feature{{ $feature->id }}" value="{{ $feature->id }}" @if(collect(old('features'))->contains($feature->id)) checked @endif>
                                             <label class="form-check-label"
                                                 for="feature{{ $feature->id }}">{{ $feature->name }}</label>
                                         </div>

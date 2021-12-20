@@ -67,13 +67,12 @@
                                     <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    {{-- <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-icon btn-danger" title="Delete">
+                                    {{-- If it is not super admin, show the delete button --}}
+                                    @if (!$user->is_super_user)
+                                        <button class="btn btn-icon btn-danger" data-confirm="{{ __('Are you sure?|This action can\'t be undone') }}" data-confirm-yes="deleteUser({{ $user->id }});" title="Delete">
                                             <i class="far fa-trash-alt"></i>
                                         </button>
-                                    </form> --}}
+                                    @endif
                                 </td>
                             </tr>
                             @empty
@@ -94,3 +93,37 @@
     </div>
 </section>
 @endsection
+@push('javascript')
+    <script>
+        function deleteUser(id){
+            $.ajax({
+                url: route('admin.users.destroy', id),
+                method: 'POST',
+                data: {
+                    _method: 'DELETE'
+                },
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(response){
+                    if(response.success){
+                        window.location.reload();
+                    }else{
+                        iziToast.error({
+                            title: 'Error',
+                            message: "{{ __('Something went wrong') }}",
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(response){
+                    iziToast.error({
+                        title: 'Error',
+                        message: "{{ __('Something went wrong') }}",
+                        position: 'topRight'
+                    });
+                }
+            })
+        }
+    </script>
+@endpush

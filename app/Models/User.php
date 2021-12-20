@@ -107,4 +107,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $query->agent()->suspended();
     }
+
+    public function scopeNotAgent($query)
+    {
+        return $query->where('role', '!=', 'agent');
+    }
 }

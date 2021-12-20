@@ -54,9 +54,9 @@
                                     <a href="{{ route('admin.cities.edit', $city) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    <a href="#" class="btn btn-icon btn-danger" title="Delete">
+                                    <button class="btn btn-icon btn-danger" data-confirm="{{ __('Are you sure?|This action can\'t be undone') }}" data-confirm-yes="deleteCity({{ $city->id }});" title="Delete">
                                         <i class="far fa-trash-alt"></i>
-                                    </a>
+                                    </button>
                                 </td>
                             </tr>
                             @empty
@@ -77,3 +77,37 @@
     </div>
 </section>
 @endsection
+@push('javascript')
+        <script>
+        function deleteCity(id){
+            $.ajax({
+                url: route('admin.cities.destroy', id),
+                method: 'POST',
+                data: {
+                    _method: 'DELETE'
+                },
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(response){
+                    if(response.success){
+                        window.location.reload();
+                    }else{
+                        iziToast.error({
+                            title: 'Error',
+                            message: "{{ __('Something went wrong') }}",
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(response){
+                    iziToast.error({
+                        title: 'Error',
+                        message: "{{ __('Something went wrong') }}",
+                        position: 'topRight'
+                    });
+                }
+            })
+        }
+    </script>
+@endpush
