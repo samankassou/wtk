@@ -23,10 +23,10 @@ class CreateAdvertsTable extends Migration
             $table->string('moderation_status')->default('pending'); // pending, approved, rejected
             $table->double('latitude')->nullable();
             $table->double('longitude')->nullable();
-            $table->tinyInteger('number_of_bedrooms')->default(0);
-            $table->tinyInteger('number_of_bathrooms')->default(0);
-            $table->tinyInteger('number_of_floors')->default(0);
-            $table->tinyInteger('square')->default(1); // m2
+            $table->integer('number_of_bedrooms')->default(0);
+            $table->integer('number_of_bathrooms')->default(0);
+            $table->integer('number_of_floors')->default(0);
+            $table->integer('square')->default(1); // m2
             $table->integer('price');
             $table->json('features'); // Wifi, Parking, Security, balcon ...
             $table->string('period')->default('month'); // day, month, year

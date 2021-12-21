@@ -113,10 +113,9 @@
                         </div>
 
                         <div class="row">
-
                             {{-- Images --}}
                             <div class="col-12">
-                                <input hidden id="imagesPreview" name="images[]"/>
+                                <input hidden id="imagesPreview" name="images"/>
                                 <div class="form-group">
                                     <label for="images" class="form-label">Images</label>
                                     <div class="dropzone dropzone-file-area" id="images">
@@ -493,22 +492,40 @@
 <script src="{{ asset('vendor/select2/select2.full.min.js') }}"></script>
 <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 <script>
+    var fileList = new Array;
+    var i = 0;
    Dropzone.options.images = {
         url: "{{ route('temporal_upload') }}",
         uploadMultiple: true,
+        parallelUploads: 1,
         headers: {
             'X-CSRF-TOKEN': "{{ csrf_token() }}"
         },
         addRemoveLinks: true,
+        acceptedFiles: ".jpeg,.jpg,.png",
         success: function(file, response){
+            // add the file id from the files list
             var imgName = response;
-            console.log(file);
+            //console.log(response);
+            fileList.push(imgName);
+            console.log(fileList);
             file.previewElement.classList.add("dz-success");
+        },
+        removedfile: function(file){
+            // remove the file id from the files list
+            thisDropzone = this;
+            console.log(file.name);
+            let _del;
+            return (_del = file.previewElement) != null ? _del.parentNode.removeChild(file.previewElement) : void 0;
         },
         error: function(file, response){
             file.previewElement.classList.add("dz-error");
         },
 
     }
+
+    $('#create-advert-form').on('submit', function(){
+        $('#imagesPreview').val(fileList);
+    })
 </script>
 @endpush
