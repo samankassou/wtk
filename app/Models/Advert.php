@@ -65,12 +65,12 @@ class Advert extends Model implements HasMedia
             ->useFallbackPath(public_path('/assets/img/example-image.jpg'));
     }
 
-    public function user()
+    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function categories()
+    public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
     }

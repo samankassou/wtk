@@ -19,6 +19,7 @@ class StoreAdvertController extends Controller
      */
     public function __invoke(StoreAdvertRequest $request)
     {
+        dd(json_decode($request->images));
         $data = Arr::except($request->validated(), ['categories', 'images']);
 
 

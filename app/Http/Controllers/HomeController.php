@@ -28,28 +28,4 @@ class HomeController extends Controller
         }
     }
 
-    public function storeImages(Request $request)
-    {
-        if($request->hasFile('file')){
-
-            $file = $request->file('file')[0];
-
-            $fileName = $file->getClientOriginalName();
-            $folder = uniqid().'-'.now()->timestamp;
-            $file->storeAs('uploads/tmp/'.$folder, $fileName);
-
-            TmpFile::create([
-                'folder' => $folder,
-                'name' => $fileName
-            ]);
-
-            return $folder;
-        }
-        return "";
-    }
-
-    public function deleteImage(Request $request)
-    {
-        return "ok";
-    }
 }

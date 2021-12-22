@@ -115,7 +115,7 @@
                         <div class="row">
                             {{-- Images --}}
                             <div class="col-12">
-                                <input hidden id="imagesPreview" name="images"/>
+                                <input hidden id="imagesPreview" name="images" value="{{ old('images') }}"/>
                                 <div class="form-group">
                                     <label for="images" class="form-label">Images</label>
                                     <div class="dropzone dropzone-file-area" id="images">
@@ -123,11 +123,6 @@
                                             <span>Click here to upload your property images</span>
                                         </div>
                                     </div>
-                                    @error('images')
-                                    <span class="invalid-feedback text-small">
-                                        {{ $message }}
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
                             {{-- End images --}}
@@ -492,40 +487,85 @@
 <script src="{{ asset('vendor/select2/select2.full.min.js') }}"></script>
 <script src="{{ asset('vendor/summernote/summernote-bs4.min.js') }}"></script>
 <script>
-    var fileList = new Array;
-    var i = 0;
-   Dropzone.options.images = {
+    // get old files if they exists
+    var fileList = $('#imagesPreview').val() ? JSON.parse($('#imagesPreview').val()) : [];
+
+    Dropzone.options.images = {
         url: "{{ route('temporal_upload') }}",
         uploadMultiple: true,
+        maxFilesize: 5,
         parallelUploads: 1,
         headers: {
             'X-CSRF-TOKEN': "{{ csrf_token() }}"
         },
         addRemoveLinks: true,
         acceptedFiles: ".jpeg,.jpg,.png",
+        init: function(){
+            let myDropzone = this;
+            $.each(fileList, function(key, value){
+                let mockFile = {
+                    name: value.name,
+                    size: value.size,
+                    id: value.folder,
+                    folder: value.folder,
+                    status: 'success'
+                };
+                myDropzone.files.push(mockFile);
+                myDropzone.displayExistingFile(mockFile, route('home')+'/storage/uploads/tmp/'+value.folder+'/'+value.name);
+            });
+        },
         success: function(file, response){
             // add the file id from the files list
-            var imgName = response;
-            //console.log(response);
-            fileList.push(imgName);
-            console.log(fileList);
+            file.id = response.folder;
+            file.folder = response.folder;
+            file.name = response.name;
+            file.size = response.size;
+
+            fileList.push(response);
+
             file.previewElement.classList.add("dz-success");
         },
         removedfile: function(file){
             // remove the file id from the files list
+
             thisDropzone = this;
-            console.log(file.name);
+            let fileId = file.id;
             let _del;
+
+
+            // remove it from the list
+            fileList = fileList.filter(item => item.folder !== fileId);
+
+            if(fileId){
+                // remove it from the server
+                $.ajax({
+                    url: route('file.delete', fileId),
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    success: function(resp){
+                    },
+                    error: function(resp){
+                        console.error(resp)
+                    }
+
+                });
+            }
+
+            // remove the thumbnail
             return (_del = file.previewElement) != null ? _del.parentNode.removeChild(file.previewElement) : void 0;
         },
         error: function(file, response){
             file.previewElement.classList.add("dz-error");
+            $(file.previewElement).find('.dz-error-message').text(response);
         },
 
     }
 
-    $('#create-advert-form').on('submit', function(){
-        $('#imagesPreview').val(fileList);
+    // add dropzone images when submiting the form
+    $('#create-advert-form').on('submit', function(e){
+        $('#imagesPreview').val(JSON.stringify(fileList));
     })
 </script>
 @endpush

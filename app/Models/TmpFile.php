@@ -5,6 +5,7 @@ namespace App\Models;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\File;
 
 class TmpFile extends Model
 {
@@ -16,8 +17,9 @@ class TmpFile extends Model
         parent::boot();
         static::deleting(function($file){
             try{
-                rmdir(storage_path('app/uploads/tmp/'.$file->folder));
+                File::deleteDirectory(storage_path('app/public/uploads/tmp/'.$file->folder));
             }catch(Exception $e){
+                throw new Exception($e->getMessage(), 1);
 
             }
         });
