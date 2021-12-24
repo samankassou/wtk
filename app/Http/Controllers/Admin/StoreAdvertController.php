@@ -19,7 +19,6 @@ class StoreAdvertController extends Controller
      */
     public function __invoke(StoreAdvertRequest $request)
     {
-        dd(json_decode($request->images));
         $data = Arr::except($request->validated(), ['categories', 'images']);
 
 
@@ -44,9 +43,11 @@ class StoreAdvertController extends Controller
             return $advert;
         });
 
+        $images = json_decode($request->images);
+
         // if user uploaded some images
-        if($request->images){
-            upload_images($advert, $request->images, 'images');
+        if(count($images)){
+            upload_images($advert, $images, 'images');
         }
 
 

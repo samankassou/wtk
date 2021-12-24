@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Advert extends Model implements HasMedia
 {
@@ -63,6 +65,26 @@ class Advert extends Model implements HasMedia
             ->addMediaCollection('images')
             ->useFallbackUrl('/assets/img/example-image.jpg')
             ->useFallbackPath(public_path('/assets/img/example-image.jpg'));
+    }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+
+        $this->addMediaConversion('property-thumnail-xs')
+            ->fit(Manipulations::FIT_CONTAIN, 75, 75)
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('property-thumnail-sm')
+            ->fit(Manipulations::FIT_CONTAIN, 150, 150)
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('property-image-md')
+            ->fit(Manipulations::FIT_CONTAIN, 480, 320)
+            ->performOnCollections('images');
+
+        $this->addMediaConversion('property-image-lg')
+            ->fit(Manipulations::FIT_CONTAIN, 1024, 768)
+            ->performOnCollections('images');
     }
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo

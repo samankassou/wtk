@@ -68,8 +68,8 @@
                             <div class="col-12">
                                 <div class="control-label"></div>
                                 <label class="custom-switch pl-0 mb-3">
-                                    <input type="checkbox" name="is_featured" value="{{ old('is_featured') }}"
-                                        class="custom-switch-input">
+                                    <input type="checkbox" name="is_featured" value="1"
+                                        class="custom-switch-input" @if(old('is_featured')) checked @endif>
                                     <span class="custom-switch-indicator"></span>
                                     <span class="custom-switch-description">Is featured?</span>
                                 </label>

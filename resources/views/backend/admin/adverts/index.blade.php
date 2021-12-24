@@ -2,6 +2,28 @@
 
 @section('title', 'Adverts')
 
+@push('stylesheet')
+    <style>
+        .property-preview{
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            position: relative;
+            padding-bottom: 50px;
+        }
+        .property-preview img{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+@endpush
+
 @section('content')
 <section class="section">
     <div class="section-header">
@@ -51,7 +73,9 @@
                                 <td><input type="checkbox" name="ids[]" value="{{ $advert->id }}"></td>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
-                                    <img src="{{ $advert->getFirstMediaUrl('images') }}" alt="Property image" width="50">
+                                    <div class="property-preview d-bolck">
+                                        <img src="{{ $advert->getFirstMediaUrl('images', 'property-thumnail-xs') }}" alt="{{ $advert->title }}">
+                                    </div>
                                 </td>
                                 <td>{{ $advert->title }}</td>
                                 <td>{{ $advert->created_at->format('d/m/Y') }}</td>
