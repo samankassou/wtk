@@ -22,4 +22,9 @@ class Category extends Model
     {
         return $this->belongsToMany(Advert::class);
     }
+
+    public function scopeCategories($query)
+    {
+        return $query->whereNull('parent_id');
+    }
 }

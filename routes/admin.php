@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\DeleteAdvertController;
 use App\Http\Controllers\Admin\EditCategoryController;
 use App\Http\Controllers\Admin\ShowCategoryController;
 use App\Http\Controllers\Admin\UpdateAdvertController;
+use App\Http\Controllers\Admin\CreateCategoryController;
 use App\Http\Controllers\Admin\DeleteCategoryController;
 use App\Http\Controllers\Admin\ShowCategoriesController;
 use App\Http\Controllers\Admin\UpdateCategoryController;
@@ -57,8 +58,8 @@ Route::delete('cities/{city}', DeleteCityController::class)->name('cities.destro
 
 // Categories management routes
 Route::get('categories', ShowCategoriesController::class)->name('categories.index');
-Route::get('categories/create', CreateCityController::class)->name('categories.create');
-Route::post('categories', StoreCityController::class)->name('categories.store');
+Route::get('categories/create', [CreateCategoryController::class, 'create'])->name('categories.create');
+Route::post('categories', [CreateCategoryController::class, 'store'])->name('categories.store');
 Route::get('categories/{category}', ShowCategoryController::class)->name('categories.show');
 Route::get('categories/{category}/edit', EditCategoryController::class)->name('categories.edit');
 Route::patch('categories/{category}', UpdateCategoryController::class)->name('categories.update');

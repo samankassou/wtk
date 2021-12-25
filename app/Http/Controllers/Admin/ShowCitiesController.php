@@ -16,7 +16,7 @@ class ShowCitiesController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $cities = City::withCount('adverts')->paginate(10);
+        $cities = City::withCount('adverts')->paginate(10)->withQueryString();
         return view('backend.admin.cities.index', compact('cities'));
     }
 }
