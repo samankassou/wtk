@@ -39,7 +39,14 @@
                                 <td>
                                     @include('backend.admin.categories.includes.is_featured', ['is_featured' => $category->is_featured])
                                 </td>
-                                <td></td>
+                                <td class="d-flex align-items-center">
+                                    <a href="{{ route('admin.categories.edit', $category) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
+                                        <i class="far fa-edit"></i>
+                                    </a>
+                                    <button class="btn btn-icon btn-danger" data-confirm="{{ __('Are you sure?|This action can\'t be undone') }}" data-confirm-yes="deleteCategory({{ $category->id }});" title="Delete">
+                                        <i class="far fa-trash-alt"></i>
+                                    </button>
+                                </td>
                             </tr>
                             @empty
                                 <tr>

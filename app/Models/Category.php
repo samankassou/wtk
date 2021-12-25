@@ -16,6 +16,9 @@ class Category extends Model
      */
     protected $fillable = [
         'name',
+        'is_featured',
+        'parent_id',
+        'description'
     ];
 
     public function adverts()

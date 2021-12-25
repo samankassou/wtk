@@ -23,7 +23,6 @@ use App\Http\Controllers\Admin\ShowAdvertsController;
 use App\Http\Controllers\Admin\StoreAdvertController;
 use App\Http\Controllers\Admin\CreateAdvertController;
 use App\Http\Controllers\Admin\DeleteAdvertController;
-use App\Http\Controllers\Admin\EditCategoryController;
 use App\Http\Controllers\Admin\ShowCategoryController;
 use App\Http\Controllers\Admin\UpdateAdvertController;
 use App\Http\Controllers\Admin\CreateCategoryController;
@@ -61,8 +60,8 @@ Route::get('categories', ShowCategoriesController::class)->name('categories.inde
 Route::get('categories/create', [CreateCategoryController::class, 'create'])->name('categories.create');
 Route::post('categories', [CreateCategoryController::class, 'store'])->name('categories.store');
 Route::get('categories/{category}', ShowCategoryController::class)->name('categories.show');
-Route::get('categories/{category}/edit', EditCategoryController::class)->name('categories.edit');
-Route::patch('categories/{category}', UpdateCategoryController::class)->name('categories.update');
+Route::get('categories/{category}/edit', [UpdateCategoryController::class, 'edit'])->name('categories.edit');
+Route::patch('categories/{category}', [UpdateCategoryController::class, 'update'])->name('categories.update');
 Route::delete('categories/{category}', DeleteCategoryController::class)->name('categories.destroy');
 
 // Adverts management routes

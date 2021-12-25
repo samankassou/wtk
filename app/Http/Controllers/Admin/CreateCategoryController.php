@@ -11,7 +11,7 @@ class CreateCategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::categories()->paginate(10)->withQueryString();
+        $categories = Category::categories()->get(['id', 'name']);
 
         return view('backend.admin.categories.create', compact('categories'));
     }
