@@ -27,6 +27,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>{{ __('Total adverts') }}</th>
                                 <th>Is Featured</th>
                                 <th></th>
                             </tr>
@@ -36,6 +37,7 @@
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $category->name }}</td>
+                                <td>{{ $category->adverts_count }}</td>
                                 <td>
                                     @include('backend.admin.categories.includes.is_featured', ['is_featured' => $category->is_featured])
                                 </td>
@@ -66,3 +68,37 @@
     </div>
 </section>
 @endsection
+@push('javascript')
+        <script>
+        function deleteCategory(id){
+            $.ajax({
+                url: route('admin.categories.destroy', id),
+                method: 'POST',
+                data: {
+                    _method: 'DELETE'
+                },
+                headers: {
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                },
+                success: function(response){
+                    if(response.success){
+                        window.location.reload();
+                    }else{
+                        iziToast.error({
+                            title: 'Error',
+                            message: "{{ __('Something went wrong') }}",
+                            position: 'topRight'
+                        });
+                    }
+                },
+                error: function(response){
+                    iziToast.error({
+                        title: 'Error',
+                        message: "{{ __('Something went wrong') }}",
+                        position: 'topRight'
+                    });
+                }
+            })
+        }
+    </script>
+@endpush
