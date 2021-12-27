@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="col-sm-4 text-right">
-                        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">{{ __('Create an agent') }}</a>
+                        <a href="{{ route('admin.agents.create') }}" class="btn btn-primary">{{ __('Create an agent') }}</a>
                     </div>
                 </div>
 
@@ -37,6 +37,7 @@
                                 <th>#</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>{{ __('Credits') }}</th>
                                 <th>Created at</th>
                                 <th>Status</th>
                                 <th></th>
@@ -48,26 +49,20 @@
                                 <td><input type="checkbox" name="ids[]" value="{{ $agent->id }}"></td>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
-                                    <a href="{{ route('admin.users.show', $agent) }}">
+                                    <a href="{{ route('admin.agents.show', $agent) }}">
                                         {{ $agent->username }}
                                     </a>
                                 </td>
                                 <td><a href="mailto:{{ $agent->email }}">{{ $agent->email }}</a></td>
+                                <td>{{ $agent->credits }}</td>
                                 <td>{{ optional($agent->created_at)->format('d/m/Y') }}</td>
                                 <td>
                                     @include('backend.admin.agents.includes.status', ['status' => $agent->status])
                                 </td>
                                 <td class="d-flex align-items-center">
-                                    <a href="{{ route('admin.users.edit', $agent) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
+                                    <a href="{{ route('admin.agents.edit', $agent) }}" class="btn btn-icon btn-primary mr-2" title="Edit">
                                         <i class="far fa-edit"></i>
                                     </a>
-                                    {{-- <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-icon btn-danger" title="Delete">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </form> --}}
                                 </td>
                             </tr>
                             @empty

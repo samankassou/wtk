@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Spatie\Image\Manipulations;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
@@ -111,5 +112,17 @@ class User extends Authenticatable implements HasMedia
     public function scopeNotAgent($query)
     {
         return $query->where('role', '!=', 'agent');
+    }
+
+    public function setDobAttribute($value)
+    {
+        return Carbon::parse($value)->format('d/m/Y');
+    }
+
+    public function getDobAttribute($value)
+    {
+        if($value){
+            $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
+        }
     }
 }

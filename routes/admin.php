@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\EditUserController;
 use App\Http\Controllers\Admin\ShowCityController;
 use App\Http\Controllers\Admin\ShowUserController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\ShowAgentController;
 use App\Http\Controllers\Admin\ShowUsersController;
-use App\Http\Controllers\Admin\StoreCityController;
 use App\Http\Controllers\Admin\StoreUserController;
 use App\Http\Controllers\Admin\CreateCityController;
 use App\Http\Controllers\Admin\CreateUserController;
@@ -19,8 +19,11 @@ use App\Http\Controllers\Admin\ShowAgentsController;
 use App\Http\Controllers\Admin\ShowCitiesController;
 use App\Http\Controllers\Admin\UpdateCityController;
 use App\Http\Controllers\Admin\UpdateUserController;
+use App\Http\Controllers\Admin\CreateAgentController;
+use App\Http\Controllers\Admin\DeleteAgentController;
 use App\Http\Controllers\Admin\ShowAdvertsController;
 use App\Http\Controllers\Admin\StoreAdvertController;
+use App\Http\Controllers\Admin\UpdateAgentController;
 use App\Http\Controllers\Admin\CreateAdvertController;
 use App\Http\Controllers\Admin\DeleteAdvertController;
 use App\Http\Controllers\Admin\ShowCategoryController;
@@ -45,11 +48,17 @@ Route::delete('users/{user}', DeleteUserController::class)->name('users.destroy'
 
 // Agents management routes
 Route::get('agents', ShowAgentsController::class)->name('agents.index');
+Route::get('agents/create', [CreateAgentController::class, 'create'])->name('agents.create');
+Route::post('agents', [CreateAgentController::class, 'store'])->name('agents.store');
+Route::get('agents/{agent}', ShowAgentController::class)->name('agents.show');
+Route::get('agents/{agent}/edit', [UpdateAgentController::class, 'edit'])->name('agents.edit');
+Route::patch('agents/{agent}', [UpdateAgentController::class, 'update'])->name('agents.update');
+Route::delete('agents/{agent}', DeleteAgentController::class)->name('agents.destroy');
 
 // Cities management routes
 Route::get('cities', ShowCitiesController::class)->name('cities.index');
-Route::get('cities/create', CreateCityController::class)->name('cities.create');
-Route::post('cities', StoreCityController::class)->name('cities.store');
+Route::get('cities/create', [CreateCityController::class, 'create'])->name('cities.create');
+Route::post('cities', [CreateCityController::class, 'store'])->name('cities.store');
 Route::get('cities/{city}', ShowCityController::class)->name('cities.show');
 Route::get('cities/{city}/edit', EditCityController::class)->name('cities.edit');
 Route::patch('cities/{city}', UpdateCityController::class)->name('cities.update');
