@@ -108,7 +108,7 @@
                                 <div class="form-group">
                                     <label for="dob">Date of birth</label>
                                     <div class="input-group">
-                                        <input type="text" name="dob" value="{{ old('dob') }}" class="form-control datepicker" placeholder="DD/MM/YYYY">
+                                        <input type="text" autocomplete="off" name="dob" value="" class="form-control datepicker" placeholder="DD/MM/YYYY">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text" style="cursor: pointer">
                                                 <i class="fas fa-calendar"></i>
@@ -177,7 +177,7 @@
 <script>
     $('.datepicker').datepicker({
         format: 'dd/mm/yyyy',
-        autoClose: true
+        autoclose: true,
     });
 </script>
 @endpush

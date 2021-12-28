@@ -31,6 +31,8 @@ class User extends Authenticatable implements HasMedia
         'remember_token',
         'company_name',
         'phone',
+        'dob',
+        'is_featured',
         'biography',
         'birthday',
         'gender',
@@ -74,8 +76,8 @@ class User extends Authenticatable implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('avatar')
-            ->fit(Manipulations::FIT_CONTAIN, 200, 200)
+        $this->addMediaConversion('avatar-thumbnail')
+            ->fit(Manipulations::FIT_CONTAIN, 75, 75)
             ->performOnCollections('avatar');
     }
 
@@ -114,12 +116,12 @@ class User extends Authenticatable implements HasMedia
         return $query->where('role', '!=', 'agent');
     }
 
-    public function setDobAttribute($value)
+    public function getDobAttribute($value)
     {
         return Carbon::parse($value)->format('d/m/Y');
     }
 
-    public function getDobAttribute($value)
+    public function setDobAttribute($value)
     {
         if($value){
             $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
