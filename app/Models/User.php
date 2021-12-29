@@ -86,6 +86,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Advert::class);
     }
 
+    public function properties()
+    {
+        return $this->hasMany(Advert::class, 'user_id');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('status', 'active');
@@ -99,6 +104,11 @@ class User extends Authenticatable implements HasMedia
     public function scopeAgent($query)
     {
         return $query->where('role', 'agent');
+    }
+
+    public function scopeFeaturedAgent($query)
+    {
+        return $this->agent()->where('is_featured', 1);
     }
 
     public function scopeActiveAgent($query)
@@ -126,5 +136,15 @@ class User extends Authenticatable implements HasMedia
         if($value){
             $this->attributes['dob'] = Carbon::createFromFormat('d/m/Y', $value)->toDateString();
         }
+    }
+
+    public function setPhoneAttribute($value)
+    {
+        $this->attributes['phone'] = "237".$value;
+    }
+
+    public function getPhoneAttribute($value)
+    {
+        return $value ? substr($value, 3) : null;
     }
 }

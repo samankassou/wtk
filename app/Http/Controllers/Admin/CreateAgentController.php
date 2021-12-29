@@ -20,7 +20,7 @@ class CreateAgentController extends Controller
             'name'     => ['required'],
             'username' => ['required', 'alpha_dash', 'unique:users,username'],
             'phone'    => ['required', 'regex:/^6[5679][0-9]{7}$/'],
-            'email'    => ['required', 'email'],
+            'email'    => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:5', 'confirmed']
         ]);
 

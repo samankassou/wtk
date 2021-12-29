@@ -2,18 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\EditCityController;
-use App\Http\Controllers\Admin\EditUserController;
 use App\Http\Controllers\Admin\ShowCityController;
 use App\Http\Controllers\Admin\ShowUserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ShowAgentController;
 use App\Http\Controllers\Admin\ShowUsersController;
-use App\Http\Controllers\Admin\StoreUserController;
 use App\Http\Controllers\Admin\CreateCityController;
 use App\Http\Controllers\Admin\CreateUserController;
 use App\Http\Controllers\Admin\DeleteCityController;
 use App\Http\Controllers\Admin\DeleteUserController;
-use App\Http\Controllers\Admin\EditAdvertController;
 use App\Http\Controllers\Admin\ShowAdvertController;
 use App\Http\Controllers\Admin\ShowAgentsController;
 use App\Http\Controllers\Admin\ShowCitiesController;
@@ -22,7 +19,6 @@ use App\Http\Controllers\Admin\UpdateUserController;
 use App\Http\Controllers\Admin\CreateAgentController;
 use App\Http\Controllers\Admin\DeleteAgentController;
 use App\Http\Controllers\Admin\ShowAdvertsController;
-use App\Http\Controllers\Admin\StoreAdvertController;
 use App\Http\Controllers\Admin\UpdateAgentController;
 use App\Http\Controllers\Admin\CreateAdvertController;
 use App\Http\Controllers\Admin\DeleteAdvertController;
@@ -39,11 +35,11 @@ Route::get('dashboard', DashboardController::class)->name('dashboard');
 
 // Users management routes
 Route::get('users', ShowUsersController::class)->name('users.index');
-Route::get('users/create', CreateUserController::class)->name('users.create');
-Route::post('users', StoreUserController::class)->name('users.store');
+Route::get('users/create', [CreateUserController::class, 'create'])->name('users.create');
+Route::post('users', [CreateUserController::class, 'store'])->name('users.store');
 Route::get('users/{user}', ShowUserController::class)->name('users.show');
-Route::get('users/{user}/edit', EditUserController::class)->name('users.edit');
-Route::patch('users/{user}', UpdateUserController::class)->name('users.update');
+Route::get('users/{user}/edit', [UpdateUserController::class, 'edit'])->name('users.edit');
+Route::patch('users/{user}', [UpdateUserController::class, 'update'])->name('users.update');
 Route::delete('users/{user}', DeleteUserController::class)->name('users.destroy');
 
 // Agents management routes
@@ -75,9 +71,9 @@ Route::delete('categories/{category}', DeleteCategoryController::class)->name('c
 
 // Adverts management routes
 Route::get('adverts', ShowAdvertsController::class)->name('adverts.index');
-Route::get('adverts/create', CreateAdvertController::class)->name('adverts.create');
-Route::post('adverts', StoreAdvertController::class)->name('adverts.store');
+Route::get('adverts/create', [CreateAdvertController::class, 'create'])->name('adverts.create');
+Route::post('adverts', [CreateAdvertController::class, 'store'])->name('adverts.store');
 Route::get('adverts/{advert}', ShowAdvertController::class)->name('adverts.show');
-Route::get('adverts/{advert}/edit', EditAdvertController::class)->name('adverts.edit');
-Route::patch('adverts/{advert}', UpdateAdvertController::class)->name('adverts.update');
+Route::get('adverts/{advert}/edit', [UpdateAdvertController::class, 'edit'])->name('adverts.edit');
+Route::patch('adverts/{advert}', [UpdateAdvertController::class, 'update'])->name('adverts.update');
 Route::delete('adverts/{advert}', DeleteAdvertController::class)->name('adverts.destroy');

@@ -14,7 +14,7 @@
 
     <div class="section-body">
         <h2 class="section-title">Edit "{{ $agent->name }}" account</h2>
-        <p class="section-lead">This page is for editing agent information.</p>
+        <p class="section-lead">This page is for editing agent informations.</p>
         <form class="row" action="{{ route('admin.agents.update', $agent) }}" method="POST">
             @csrf
             @method('PATCH')

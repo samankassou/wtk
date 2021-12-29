@@ -37,7 +37,7 @@ class UserSeeder extends Seeder
             'username'       => 'agent1',
             'password'       => bcrypt('password'),
             'role'           => 'agent',
-            'phone'          => '237691565877',
+            'phone'          => '691565877',
             'remember_token' => Str::random(10),
             'social_links'   => [
                 'facebook' => "",

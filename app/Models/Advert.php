@@ -92,9 +92,24 @@ class Advert extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function getFormatedPrice()
+    {
+        return number_format($this->attributes['price'], 0, '.', ' ');
+    }
+
+    public function getFirstCategoryName()
+    {
+        return $this->categories->first()->name;
+    }
+
     public function categories(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
     }
 
     public function scopeApproved($query)

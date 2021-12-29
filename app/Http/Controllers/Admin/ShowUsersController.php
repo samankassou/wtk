@@ -28,9 +28,9 @@ class ShowUsersController extends Controller
         });
 
         $users = $query->paginate(10)->withQueryString();
-        $all = User::count();
-        $actives = User::active()->count();
-        $suspended = User::suspended()->count();
+        $all = User::NotAgent()->count();
+        $actives = User::NotAgent()->active()->count();
+        $suspended = User::NotAgent()->suspended()->count();
 
         return view('backend.admin.users.index', compact('users', 'all', 'actives', 'suspended'));
     }
