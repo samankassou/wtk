@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class City extends Model implements HasMedia
 {
@@ -39,6 +41,15 @@ class City extends Model implements HasMedia
             ->useFallbackUrl('/assets/img/example-image.jpg')
             ->useFallbackPath(public_path('/assets/img/example-image.jpg'));
     }
+
+     public function registerMediaConversions(Media $media = null): void
+     {
+
+        $this->addMediaConversion('cover-sm')
+        ->fit(Manipulations::FIT_CONTAIN, 480, 320)
+        ->performOnCollections('cover');
+
+     }
 
     public function adverts()
     {

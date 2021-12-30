@@ -26,7 +26,7 @@ class StoreAdvertRequest extends FormRequest
         return [
             'title'             => ['required'],
             'type'              => ['required'],
-            'description'       => ['required'],
+            'description'       => ['required', 'max:255'],
             'city'              => ['required', 'exists:cities,id'],
             'location'          => ['required'],
             'period'            => ['required'],

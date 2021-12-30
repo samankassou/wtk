@@ -16,6 +16,7 @@ class CreateAdvertsTable extends Migration
         Schema::create('adverts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->nullable();
             $table->string('type')->default('rent'); // rent or sale
             $table->string('description')->nullable(); // short description
             $table->text('content'); // full description

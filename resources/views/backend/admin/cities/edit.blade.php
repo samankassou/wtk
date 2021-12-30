@@ -11,7 +11,7 @@
     <div class="section-body">
         <h2 class="section-title">Edit a city</h2>
         <p class="section-lead">This page is for editing a city.</p>
-        <form class="row" action="{{ route('admin.cities.update', $city) }}" method="POST">
+        <form class="row" action="{{ route('admin.cities.update', $city) }}" method="POST" enctype="multipart/form-data">
             @method('PATCH')
             @csrf
             <div class="col-12 col-md-8">
@@ -79,6 +79,21 @@
                 </div>
             </div>
             <div class="col-12 col-md-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Image</label>
+                                    <img id="image-preview" class="img-fluid" src="{{ $city->getFirstMediaUrl('cover', 'cover-sm') }}" alt="City image">
+                                    <input accept="image/*" class="mt-4" type="file" name="image" id="image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -96,3 +111,15 @@
     </div>
 </section>
 @endsection
+@push('javascript')
+    <script>
+        $(document).ready(function(){
+            $('#image').on('change', function(e){
+                const [file] = e.target.files;
+                if(file){
+                    $('#image-preview').attr('src', URL.createObjectURL(file));
+                }
+            });
+        })
+    </script>
+@endpush

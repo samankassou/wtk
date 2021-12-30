@@ -15,11 +15,15 @@ class CreateCityController extends Controller
 
     public function store(StoreCityRequest $request)
     {
-        City::create([
-        'name' => $request->name,
-        'description' => $request->description,
-        'is_featured' => $request->is_featured ?? 0
+        $city = City::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'is_featured' => $request->is_featured ?? 0
         ]);
+
+        if($request->hasFile('image')){
+            $city->addMediaFromRequest('image')->toMediaCollection('cover');
+        }
 
         return redirect()->route('admin.cities.index')->with('success', 'City created successfully');
     }

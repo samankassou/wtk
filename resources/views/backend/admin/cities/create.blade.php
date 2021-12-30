@@ -11,7 +11,7 @@
     <div class="section-body">
         <h2 class="section-title">Create a city</h2>
         <p class="section-lead">This page is for adding a new city to the system.</p>
-        <form class="row" action="{{ route('admin.cities.store') }}" method="POST">
+        <form class="row" action="{{ route('admin.cities.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-12 col-md-8">
                 <div class="card">
@@ -79,6 +79,19 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Image</label>
+                                    <img id="image-preview" class="img-fluid" src="{{ asset('assets/img/example-image.jpg') }}" alt="City image">
+                                    <input accept="image/*" class="mt-4" type="file" name="image" id="image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
                             <div class="col-12 col-md-6 mb-3 mb-md-0">
                                 <button type="submit" class="btn btn-block btn-primary">Save</button>
                             </div>
@@ -93,3 +106,16 @@
     </div>
 </section>
 @endsection
+
+@push('javascript')
+    <script>
+        $(document).ready(function(){
+            $('#image').on('change', function(e){
+                const [file] = e.target.files;
+                if(file){
+                    $('#image-preview').attr('src', URL.createObjectURL(file));
+                }
+            });
+        })
+    </script>
+@endpush

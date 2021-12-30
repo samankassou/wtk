@@ -34,6 +34,10 @@ class UpdateAgentController extends Controller
 
         $agent->update($data);
 
+        if($request->hasFile('avatar')){
+            $agent->addMediaFromRequest('avatar')->toMediaCollection('avatar');
+        }
+
         return redirect()->route('admin.agents.index')->with('success', 'Agent updated successfully');
     }
 

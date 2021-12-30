@@ -39,7 +39,7 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>
                                     <a href="{{ route('admin.cities.show', $city) }}" class="font-weight-600">
-                                        <img src="{{ $city->getFirstMediaUrl('cover') }}" alt="cover" width="30">
+                                        <img src="{{ $city->getFirstMediaUrl('cover', 'cover-sm') }}" alt="cover" width="30">
                                     </a>
                                 </td>
                                 <td>{{ $city->name }}</td>

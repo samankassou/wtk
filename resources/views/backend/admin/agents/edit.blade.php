@@ -15,7 +15,7 @@
     <div class="section-body">
         <h2 class="section-title">Edit "{{ $agent->name }}" account</h2>
         <p class="section-lead">This page is for editing agent informations.</p>
-        <form class="row" action="{{ route('admin.agents.update', $agent) }}" method="POST">
+        <form class="row" action="{{ route('admin.agents.update', $agent) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
             <div class="col-12 col-md-8">
@@ -171,6 +171,21 @@
                 </div>
             </div>
             <div class="col-12 col-md-4">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="form-label">Image</label>
+                                    <img id="avatar-preview" class="img-fluid" src="{{ $agent->getFirstMediaUrl('avatar') }}" alt="User avatar">
+                                    <input accept="image/*" class="mt-4" type="file" name="avatar" id="avatar">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -199,5 +214,15 @@
     $('#change-password').on('click', function(){
         $('#password-zone').toggle(500);
     });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#avatar').on('change', function(e){
+            const [file] = e.target.files;
+            if(file){
+                $('#avatar-preview').attr('src', URL.createObjectURL(file));
+            }
+        });
+    })
 </script>
 @endpush

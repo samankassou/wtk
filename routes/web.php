@@ -17,6 +17,7 @@ Route::get('/redirect', [HomeController::class, 'redirect'])->name('redirect');
 
 // properties routes
 Route::get('properties', [PropertyController::class, 'index'])->name('properties.index');
+Route::get('properties/{property:slug}', [PropertyController::class, 'show'])->name('properties.show');
 
 // wishlist routes
 Route::post('/wishlist/add/{id}', [WishListController::class, 'add'])->name('wishlist.add');

@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Str;
 use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Advert extends Model implements HasMedia
@@ -58,6 +59,30 @@ class Advert extends Model implements HasMedia
         'is_featured' => 'boolean',
         'square'      => 'integer'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+        static::created(function ($advert) {
+            $advert->slug = $advert->generateSlug($advert->title);
+            $advert->save();
+        });
+    }
+
+    private function generateSlug($name)
+    {
+        if (static::whereSlug($slug = Str::slug($name))->exists()) {
+            $max = static::whereTitle($name)->latest('id')->skip(1)->value('slug');
+            if (isset($max[-1]) && is_numeric($max[-1])) {
+                return preg_replace_callback('/(\d+)$/', function ($mathces) {
+                    return $mathces[1] + 1;
+                }, $max);
+            }
+            return "{$slug}-2";
+        }
+
+        return $slug;
+    }
 
     public function registerMediaCollections(): void
     {
@@ -125,5 +150,20 @@ class Advert extends Model implements HasMedia
     public function scopeRejected($query)
     {
         return $query->where('moderation_status', 'rejected');
+    }
+
+    public function scopeRenting($query)
+    {
+        return $query->where('type', 'rent');
+    }
+
+    public function scopeSelling($query)
+    {
+        return $query->where('type', 'sale');
+    }
+
+    public function scopeFeatured($query)
+    {
+        return $query->where('is_featured', true);
     }
 }

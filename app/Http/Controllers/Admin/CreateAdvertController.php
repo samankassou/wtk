@@ -47,7 +47,7 @@ class CreateAdvertController extends Controller
         $data = Arr::except($request->validated(), ['_token', 'categories', 'images']);
 
 
-        $data['city_id'] = $request->city_id;
+        $data['city_id'] = $request->city;
         $data['is_featured'] = $request->is_featured ?? 0;
         $data['content'] = $request->content ?? "";
         $data['latitude'] = $request->latitude ?? 0;

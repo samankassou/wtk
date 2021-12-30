@@ -20,8 +20,13 @@ class HomeController extends Controller
         $cities = City::all(['id', 'name']);
         $categories = Category::all(['id', 'name']);
         $featuredAgents = User::FeaturedAgent()->limit(4)->withCount('properties')->get();
-        $propertiesForRent = Advert::with(['city', 'categories'])->where('type', 'rent')->limit(5)->get();
-        return view('home', compact('cities', 'categories', 'propertiesForRent', 'featuredAgents'));
+
+        $featuredProperties = Advert::with(['city', 'categories'])->featured()->limit(8)->get();
+        $propertiesForRent = Advert::with(['city', 'categories'])->renting()->limit(8)->get();
+        $propertiesForSale = Advert::with(['city', 'categories'])->selling()->limit(8)->get();
+
+        return view('home', compact('cities', 'categories', 'featuredProperties', 'propertiesForRent',
+        'propertiesForSale', 'featuredAgents'));
     }
 
     public function redirect()

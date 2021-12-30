@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="row rowm10">
-                        @foreach ($propertiesForRent as $property)
+                        @forelse ($featuredProperties as $property)
                         <div class="col-sm-4 col-md-3 colm10">
                             <div class="item" data-lat="{{ $property->latitude }}" data-long="{{ $property->longitude }}">
                                 <div class="blii">
@@ -23,7 +23,7 @@
                                             src="{{ $property->getFirstMediaUrl('images') }}"
                                             alt="{{ $property->title }}">
                                     </div>
-                                    <a href="{{ route('properties.index') }}"
+                                    <a href="{{ route('properties.show', ['property' => $property->slug]) }}"
                                         class="linkdetail"></a>
                                     <div class="media-count-wrapper">
                                         <div class="media-count">
@@ -43,9 +43,9 @@
 
                                 <div class="description">
                                     <a href="#" class="text-orange heart add-to-wishlist" data-id="{{ $property->id }}"
-                                        title="I care about this property!!!"><i class="far fa-heart"></i></a>
+                                        title="Add to whishlist"><i class="far fa-heart"></i></a>
                                     <a
-                                        href="{{ route('properties.index') }}">
+                                        href="{{ route('properties.show', ['property' => $property->slug]) }}">
                                         <h5>{{ $property->title }}</h5>
                                         <p class="dia_chi"><i class="fas fa-map-marker-alt"></i>
                                             {{ $property->location }}, {{ optional($property->city)->name }}
@@ -72,7 +72,11 @@
                                 </div>
                             </div>
                         </div>
-                        @endforeach
+                        @empty
+                        <div class="col-sm-4 col-md-3 colm10">
+                            <h4>{{ __('No property found') }}</h4>
+                        </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
@@ -94,7 +98,7 @@
                             @foreach ($cities as $city)
                             <div class="item itemarea">
                                 <a href="{{ route('properties.index') }}">
-                                    <img src="{{ $city->getFirstMediaUrl('cover') }}" alt="{{ $city->name }}">
+                                    <img src="{{ $city->getFirstMediaUrl('cover', 'cover-sm') }}" alt="{{ $city->name }}">
                                     <h4>{{ $city->name }}</h4>
                                 </a>
                             </div>
@@ -121,7 +125,7 @@
                             </div>
                         </div>
                         <div class="row rowm10">
-                            @foreach ($propertiesForRent as $property)
+                            @forelse ($propertiesForSale as $property)
                             <div class="col-sm-4 col-md-3 colm10">
                                 <div class="item" data-lat="{{ $property->latitude }}" data-long="{{ $property->longitude }}">
                                     <div class="blii">
@@ -130,7 +134,7 @@
                                                 src="{{ $property->getFirstMediaUrl('images') }}"
                                                 alt="{{ $property->title }}">
                                         </div>
-                                        <a href="{{ route('properties.index') }}"
+                                        <a href="{{ route('properties.show', ['property' => $property->slug]) }}"
                                             class="linkdetail"></a>
                                         <div class="media-count-wrapper">
                                             <div class="media-count">
@@ -153,7 +157,7 @@
                                             data-id="{{ $property->id }}" title="I care about this property!!!"><i
                                                 class="far fa-heart"></i></a>
                                         <a
-                                            href="{{ route('properties.index') }}">
+                                            href="{{ route('properties.show', ['property' => $property->slug]) }}">
                                             <h5>{{ $property->title }}</h5>
                                             <p class="dia_chi"><i class="fas fa-map-marker-alt"></i>
                                                 {{ $property->location }}, {{ optional($property->city)->name }}
@@ -181,7 +185,11 @@
                                     </div>
                                 </div>
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="col-sm-4 col-md-3 colm10">
+                                <h4 class="text-center">{{ __('No property found') }}</h4>
+                            </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
@@ -198,16 +206,16 @@
                     </div>
                 </div>
                 <div class="row rowm10">
-                    @foreach ($propertiesForRent as $property)
+                    @forelse ($propertiesForRent as $property)
                     <div class="col-sm-4 col-md-3 colm10">
-                        <div class="item" data-lat="43.522464" data-long="-76.173911">
+                        <div class="item" data-lat="{{ $property->latitude }}" data-long="{{ $property->longitude }}">
                             <div class="blii">
                                 <div class="img">
                                     <img class="thumb" data-src="{{ $property->getFirstMediaUrl('images') }}"
                                         src="{{ $property->getFirstMediaUrl('images') }}"
                                         alt="5 room luxury penthouse for sale in Kuala Lumpur">
                                 </div>
-                                <a href="{{ route('properties.index') }}"
+                                <a href="{{ route('properties.show', ['property' => $property->slug]) }}"
                                     class="linkdetail"></a>
                                 <div class="media-count-wrapper">
                                     <div class="media-count">
@@ -227,7 +235,7 @@
                             <div class="description">
                                 <a href="#" class="text-orange heart add-to-wishlist" data-id="{{ $property->id }}"
                                     title="I care about this property!!!"><i class="far fa-heart"></i></a>
-                                <a href="{{ route('properties.index') }}">
+                                <a href="{{ route('properties.show', ['property' => $property->slug]) }}">
                                     <h5>{{ $property->title }}</h5>
                                     <p class="dia_chi"><i class="fas fa-map-marker-alt"></i>
                                         {{ $property->location }}, {{ optional($property->city)->name }}</p>
@@ -252,7 +260,11 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="col-sm-4 col-md-3 colm10">
+                        <h4>{{ __('No property found') }}</h4>
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>

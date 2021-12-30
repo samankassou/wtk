@@ -24,6 +24,11 @@ class UpdateCityController extends Controller
             'is_featured' => $request->is_featured ?? 0
             ]
         );
+
+        if($request->hasFile('image')){
+            $city->addMediaFromRequest('image')->toMediaCollection('cover');
+        }
+
         return redirect()->route('admin.cities.index')->with('success', 'City updated successfully');
     }
 }
